@@ -11,11 +11,15 @@ http.createServer((req,res)=>{
     // res.statusCode=404;
     // res.setHeader('Content-type', 'text/plain')
     if(u=='/') u='/index'
-    fs.readFile('pages'+u+'.html', (e,d)=>{
+    fs.readFile('pages'+u+'.html', 'utf-8', (e,d)=>{
       if(!e) {
-        res.statusCode=200
-        res.write(d)
-        res.end() 
+        fs.readFile('layout/menu.html', 'utf-8', (err, menu)=>{
+          if(e) throw e
+          d=d.replace(/\{\{menu\}\}/, menu)
+          res.statusCode=200
+          res.write(d)
+          res.end() 
+        })
       } else {
         fs.readFile('pages/error404.html',(er,da)=>{
           res.statusCode=404
