@@ -1,3 +1,5 @@
+console.log(process.argv[2]);
+
 function timer(n) {
     let t=n;
     let seconds = setInterval(()=>{
